@@ -1,0 +1,8 @@
+{
+    "name": "redas_spider_man",
+    "version": "1.0.0",
+    "author": "yinxin <yinxin666ccyy@gmail.com>",
+    "devDependencies": {
+        "puppeteer": "latest"
+    }
+}
