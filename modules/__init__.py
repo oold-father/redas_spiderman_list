@@ -7,8 +7,10 @@
 
 from modules.spider import Spider
 from modules.spider_zhipin import SpiderZhipin
+from modules.spider_lagou import SpiderLagou
 
 __all__ = [
     "Spider",
-    "SpiderZhipin"
+    "SpiderZhipin",
+    "SpiderLagou"
 ]

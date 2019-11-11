@@ -10,7 +10,8 @@ from happy_python import HappyConfigParser
 from happy_python import HappyLog
 from config import ApiConfig
 
-from modules import SpiderZhipin
+from modules import SpiderZhipin, SpiderLagou
+
 # 配置文件位置
 CONFIG_DIR = PurePath(__file__).parent / 'configs'
 CONFIG_FILENAME = str(CONFIG_DIR / 'common.ini')
@@ -33,7 +34,8 @@ PLATFORM_MAP = {
 
 
 PLATFORM_SPIDER_MAP = {
-    "zhipin": SpiderZhipin
+    "zhipin": SpiderZhipin,
+    "lagou": SpiderLagou
 }
 
 # 爬取网页的间隔时间
