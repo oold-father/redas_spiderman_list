@@ -4,3 +4,9 @@
 # @Author  : yinxin
 # @File    : __init__.py
 # @Software: PyCharm
+
+from modules.spider import Spider
+
+__all__ = [
+    "Spider"
+]
