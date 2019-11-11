@@ -14,4 +14,8 @@ class Spider(ABC):
 
     @abstractmethod
     def handle(self):
+        """
+        每个爬虫的爬取规则
+        :return:
+        """
         pass
