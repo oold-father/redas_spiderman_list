@@ -9,7 +9,7 @@ import inspect
 import base64
 from common import api_config
 from common import hlog
-from common import PLATFORM_MAP
+from conf import PLATFORM_MAP
 import requests
 import uuid
 import os

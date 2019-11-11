@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from utils import get_start_url,get_platfrom
-from common import PLATFORM_SPIDER_MAP
+from conf import PLATFORM_SPIDER_MAP
 
 def main():
     url, num = get_start_url()
