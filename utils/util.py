@@ -9,17 +9,12 @@ import inspect
 import base64
 from common import api_config
 from common import hlog
+from common import PLATFORM_MAP
 import requests
 import uuid
 import os
 import json
 
-PLATFORM_MAP = {
-    "zhipin": "boss直聘",
-    "51job": "前程无忧",
-    "lagou": "拉勾",
-    "zhaopin": "智联招聘"
-}
 
 def send_data(source_url, htmlString):
     if "" == htmlString:

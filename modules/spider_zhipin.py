@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from modules import Spider
-from common import hlog
+from common import hlog, delay
 from utils import crawl_url,send_data
 import time
 
@@ -27,6 +27,6 @@ class SpiderZhipin(Spider):
             html = crawl_url(url)
             send_data(url, html)
 
-        time.sleep(3)
+        time.sleep(delay)
 
 

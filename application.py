@@ -6,12 +6,7 @@
 # @Software: PyCharm
 
 from utils import get_start_url,get_platfrom
-from modules import SpiderZhipin
-
-
-PLATFORM_SPIDER_MAP = {
-    "zhipin": SpiderZhipin
-}
+from common import PLATFORM_SPIDER_MAP
 
 def main():
     url, num = get_start_url()

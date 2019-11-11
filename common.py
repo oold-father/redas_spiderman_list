@@ -10,6 +10,7 @@ from happy_python import HappyConfigParser
 from happy_python import HappyLog
 from config import ApiConfig
 
+from modules import SpiderZhipin
 # 配置文件位置
 CONFIG_DIR = PurePath(__file__).parent / 'configs'
 CONFIG_FILENAME = str(CONFIG_DIR / 'common.ini')
@@ -21,3 +22,19 @@ HappyConfigParser.load(CONFIG_FILENAME, api_config)
 
 # 加载log配置
 hlog = HappyLog.get_instance(LOG_CONFIG_FILENAME)
+
+# 网页域名到网站名字的映射
+PLATFORM_MAP = {
+    "zhipin": "boss直聘",
+    "51job": "前程无忧",
+    "lagou": "拉勾",
+    "zhaopin": "智联招聘"
+}
+
+
+PLATFORM_SPIDER_MAP = {
+    "zhipin": SpiderZhipin
+}
+
+# 爬取网页的间隔时间
+delay = 3
