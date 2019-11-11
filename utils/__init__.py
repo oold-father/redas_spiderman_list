@@ -6,9 +6,11 @@
 # @Software: PyCharm
 
 
-from utils.util import send_data,crawl_url
+from utils.util import send_data,crawl_url,get_start_url,get_platfrom
 
 __all__ = [
     "send_data",
-    "crawl_url"
+    "crawl_url",
+    "get_start_url",
+    "get_platfrom"
 ]

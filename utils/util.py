@@ -5,21 +5,20 @@
 # @File    : util
 # @Software: PyCharm
 
-
+import inspect
 import base64
 from common import api_config
 from common import hlog
 import requests
 import uuid
-import re
 import os
 import json
 
 PLATFORM_MAP = {
-    "https://www.zhipin.com": "boss直聘",
-    "https://www.51job.com": "前程无忧",
-    "https://www.lagou.com": "拉勾",
-    "https://www.zhaopin.com": "智联招聘"
+    "zhipin": "boss直聘",
+    "51job": "前程无忧",
+    "lagou": "拉勾",
+    "zhaopin": "智联招聘"
 }
 
 def send_data(source_url, htmlString):
@@ -33,7 +32,7 @@ def send_data(source_url, htmlString):
     data = {
         "url": source_url,
         "spiderUuid": spider_uuid,
-        "platform": PLATFORM_MAP[re.match("(http|https)://(www.)?(\w+(\.)?)+",source_url).group()],
+        "platform": PLATFORM_MAP[get_platfrom(source_url)],
         "htmlString": encodedStr
     }
 
@@ -42,11 +41,12 @@ def send_data(source_url, htmlString):
     }
 
     url = "http://%s:%s%s"%(
-        api_config.host,
-        api_config.port,
-        api_config.uri
+        api_config.target_host,
+        api_config.target_port,
+        api_config.target_uri
     )
-    requests.post(url=url, data= data, headers= headers)
+    response = requests.post(url=url, data= data, headers= headers)
+    hlog.info("发送结果完成，返回状态%s"%response.status_code)
 
 def crawl_url(url):
 
@@ -59,3 +59,39 @@ def crawl_url(url):
         hlog.debug("爬虫爬取有误")
 
     return html
+
+def get_start_url():
+    """
+    根据配置文件设置，获取起始网址
+    :return: url获取的网址，num需要爬取的数量
+    """
+    func_name = inspect.stack()[0][3]
+    hlog.enter_func(func_name)
+
+    headers = {
+        "content-type": "application/json"
+    }
+
+    url = "http://%s:%s%s"%(
+        api_config.source_host,
+        api_config.source_port,
+        api_config.source_uri
+    )
+    hlog.var("url", url)
+    response = requests.get(url=url, headers= headers)
+    if 200 == response.status_code:
+        response_string = response.text
+        response_json = json.loads(response_string)
+        if "SUCCESS" == response_json["code"]:
+            hlog.info("获取起始url成功")
+            hlog.exit_func(func_name)
+            return response_json["result"]["url"], response_json["result"]["num"]
+
+    hlog.debug("获取起始url失败，请检查网络")
+    hlog.exit_func(func_name)
+    return "", 0
+
+def get_platfrom(url):
+    domain = url.split("/")[2]
+    platfrom = domain.split(".")[1]
+    return platfrom

@@ -5,12 +5,12 @@
 # @File    : application
 # @Software: PyCharm
 
+from utils import get_start_url
 import time
 
 def main():
-    pass
+    get_start_url()
 
 if __name__ == '__main__':
-    while True:
-        main()
-        time.sleep(5)
+    main()
+

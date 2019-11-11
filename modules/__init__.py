@@ -6,7 +6,9 @@
 # @Software: PyCharm
 
 from modules.spider import Spider
+from modules.spider_zhipin import SpiderZhipin
 
 __all__ = [
-    "Spider"
+    "Spider",
+    "SpiderZhipin"
 ]
