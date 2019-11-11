@@ -1,0 +1,8 @@
+# mq_config(UTF-8)
+[redas_spider_man]
+source_host=127.0.0.1
+source_port=9092
+source_url=/positions/get
+target_host=127.0.0.1
+target_port=9092
+target_uri=/mq/addPositionDetailHtml
