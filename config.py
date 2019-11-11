@@ -18,7 +18,7 @@ class ApiConfig(HappyConfigBase):
         self.section = "redas_spider_man"
         self.source_host = "127.0.0.1"
         self.source_port = 80
-        self.source_url = ""
+        self.source_uri = ""
         self.target_host = "127.0.0.1"
         self.target_port = 80
         self.target_uri = ""
