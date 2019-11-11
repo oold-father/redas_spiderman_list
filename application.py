@@ -5,12 +5,20 @@
 # @File    : application
 # @Software: PyCharm
 
-from utils import get_start_url
-import time
+from utils import get_start_url,get_platfrom
+from modules import SpiderZhipin
+
+
+PLATFORM_SPIDER_MAP = {
+    "zhipin": SpiderZhipin
+}
 
 def main():
-    get_start_url()
+    url, num = get_start_url()
+    my_spider = PLATFORM_SPIDER_MAP[get_platfrom(url)](url, num)
+    my_spider.handle()
 
 if __name__ == '__main__':
-    main()
+    while True:
+        main()
 
