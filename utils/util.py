@@ -9,17 +9,18 @@ import inspect
 import base64
 from common import api_config
 from common import hlog
-from conf import PLATFORM_MAP
+from common import PLATFORM_MAP
 import requests
 import uuid
 import os
 import json
 
 
-def send_data(source_url, htmlString):
+def send_data(source_url, htmlString, platform):
     """
     :param source_url: 爬取的是哪个网址
     :param htmlString: 爬取结果的字符串
+    :param platform: 平台
     :return:
     """
     func_name = inspect.stack()[0][3]
@@ -39,8 +40,8 @@ def send_data(source_url, htmlString):
 
     data = {
         "url": source_url,
-        "spiderUuid": spider_uuid,
-        "platform": PLATFORM_MAP[get_platfrom(source_url)],
+        "spiderUuid": str(spider_uuid),
+        "platform": platform,
         "htmlString": encodedStr
     }
 
@@ -54,7 +55,7 @@ def send_data(source_url, htmlString):
         api_config.target_uri
     )
 
-    response = requests.post(url=url, data= data, headers= headers)
+    response = requests.post(url=url, data=json.dumps(data), headers= headers)
     hlog.info("发送结果完成，返回状态%s"%response.status_code)
 
     hlog.exit_func(func_name)
@@ -105,13 +106,45 @@ def get_start_url():
         if "SUCCESS" == response_json["code"]:
             hlog.info("获取起始url成功")
             hlog.exit_func(func_name)
-            return response_json["result"]["url"], response_json["result"]["num"]
+            """
+            返回结果需要返回
+            {
+                "code": "SUCCESS",
+                "message": "成功",
+                "result": {
+                    "url": "https://www.zhipin.com/c101270100-p100199/",
+                    "num": 3
+                    }
+            }
+            现在返回的是
+            {
+                "code": "SUCCESS",
+                "message": "成功",
+                "result": "https://www.zhipin.com/c101270100-p100199/"
+            }
+            """
+            return response_json["result"], 3
 
     hlog.debug("获取起始url失败，请检查网络")
     hlog.exit_func(func_name)
     return "", 0
 
 def get_platfrom(url):
-    domain = url.split("/")[2]
-    platfrom = domain.split(".")[1]
+    """
+    根据url获取网站域名主体
+    :param url: 网址
+    :return:
+    """
+    func_name = inspect.stack()[0][3]
+    hlog.enter_func(func_name)
+    hlog.var("url", url)
+    try:
+        domain = url.split("/")[2]
+        platfrom = domain.split(".")[1]
+        hlog.var("platfrom", platfrom)
+    except:
+        hlog.debug("获取网站域名主体失败")
+
+    hlog.info("获取网站域名主体成功")
+    hlog.exit_func(func_name)
     return platfrom

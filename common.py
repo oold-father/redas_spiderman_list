@@ -23,3 +23,13 @@ HappyConfigParser.load(CONFIG_FILENAME, api_config)
 # 加载log配置
 hlog = HappyLog.get_instance(LOG_CONFIG_FILENAME)
 
+# 爬取网页的间隔时间
+delay = 3
+
+# 网页域名到网站名字的映射
+PLATFORM_MAP = {
+    "zhipin": "boss直聘",
+    "51job": "前程无忧",
+    "lagou": "拉勾",
+    "zhaopin": "智联招聘"
+}

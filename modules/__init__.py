@@ -14,3 +14,9 @@ __all__ = [
     "SpiderZhipin",
     "SpiderLagou"
 ]
+
+# 域名主体和对应的爬虫之间的映射
+PLATFORM_SPIDER_MAP = {
+    "zhipin": SpiderZhipin,
+    "lagou": SpiderLagou
+}

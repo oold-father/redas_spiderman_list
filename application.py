@@ -6,11 +6,12 @@
 # @Software: PyCharm
 
 from utils import get_start_url,get_platfrom
-from conf import PLATFORM_SPIDER_MAP
+from modules import PLATFORM_SPIDER_MAP
 
 def main():
     url, num = get_start_url()
     # 初始化爬虫
+    
     my_spider = PLATFORM_SPIDER_MAP[get_platfrom(url)](url, num)
     my_spider.handle()
 
